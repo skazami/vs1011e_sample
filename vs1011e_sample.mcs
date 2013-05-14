@@ -1,0 +1,110 @@
+[Header]
+MagicCookie={0b13fe8c-dfe0-40eb-8900-6712719559a7}
+Version=1.0
+[File000]
+Location=E:\work\PIC\vs1011e_sample\SD-SPI.o
+Folder=Intermediary
+DeviceName=PIC24FJ64GA002
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|SD-SPI.c|FSIO.c|vs1011e_main.c||<obj>||<lib>||<lkr>|p24FJ64GA002.gld||
+SuiteArgsString=
+ToolArgsString=-g
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1
+[File001]
+Location=E:\work\PIC\vs1011e_sample\FSIO.o
+Folder=Intermediary
+DeviceName=PIC24FJ64GA002
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|SD-SPI.c|FSIO.c|vs1011e_main.c||<obj>||<lib>||<lkr>|p24FJ64GA002.gld||
+SuiteArgsString=
+ToolArgsString=-g
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1
+[File002]
+Location=E:\work\PIC\vs1011e_sample\lcd-sdcard.o
+Folder=Intermediary
+DeviceName=PIC24FJ64GA002
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|SD-SPI.c|FSIO.c|lcd-sdcard.c||<obj>||<lib>||<lkr>|p24FJ64GA002.gld||
+SuiteArgsString=
+ToolArgsString=-g
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1
+[File003]
+Location=E:\work\PIC\vs1011e_sample\vs1011e_main.o
+Folder=Intermediary
+DeviceName=PIC24FJ64GA002
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={069BD372-6CA0-40D4-BF2F-5DC806D05083}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-gcc.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|SD-SPI.c|FSIO.c|vs1011e_main.c||<obj>||<lib>||<lkr>|p24FJ64GA002.gld||
+SuiteArgsString=
+ToolArgsString=-g
+TraceCmdString=
+DebugOptions=-D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1
+[File004]
+Location=E:\work\PIC\vs1011e_sample\lcd-sdcard.cof
+Folder=Output
+DeviceName=PIC24FJ64GA002
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-ld.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|SD-SPI.c|FSIO.c|vs1011e_main.c||<obj>||<lib>||<lkr>|p24FJ64GA002.gld||
+SuiteArgsString=
+ToolArgsString=--heap=128 -Map="$(TARGETBASE).map" -o"$(TARGETBASE).$(TARGETSUFFIX)"
+TraceCmdString=
+DebugOptions=--defsym=__MPLAB_DEBUG=1 --defsym=__MPLAB_DEBUGGER_PICKIT2=1 --defsym=__ICD2RAM=1
+[File005]
+Location=E:\work\PIC\vs1011e_sample\lcd-sdcard.hex
+Folder=Output
+DeviceName=PIC24FJ64GA002
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-ld.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|SD-SPI.c|FSIO.c|vs1011e_main.c||<obj>||<lib>||<lkr>|p24FJ64GA002.gld||
+SuiteArgsString=
+ToolArgsString=--heap=128 -Map="$(TARGETBASE).map" -o"$(TARGETBASE).$(TARGETSUFFIX)"
+TraceCmdString=
+DebugOptions=--defsym=__MPLAB_DEBUG=1 --defsym=__MPLAB_DEBUGGER_PICKIT2=1 --defsym=__ICD2RAM=1
+[File006]
+Location=E:\work\PIC\vs1011e_sample\vs1011e_sample.cof
+Folder=Output
+DeviceName=PIC24FJ64GA002
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-ld.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|SD-SPI.c|FSIO.c|vs1011e_main.c||<obj>||<lib>||<lkr>|p24FJ64GA002.gld||
+SuiteArgsString=
+ToolArgsString=--heap=128 -Map="$(TARGETBASE).map" -o"$(TARGETBASE).$(TARGETSUFFIX)"
+TraceCmdString=
+DebugOptions=--defsym=__MPLAB_DEBUG=1 --defsym=__MPLAB_DEBUGGER_PICKIT2=1 --defsym=__ICD2RAM=1
+[File007]
+Location=E:\work\PIC\vs1011e_sample\vs1011e_sample.hex
+Folder=Output
+DeviceName=PIC24FJ64GA002
+LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
+LanguageToolID={433C3D55-811D-409D-A6BF-159CF9355B42}
+LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-ld.exe
+PPAD=$(BINDIR)||$(TMPDIR)||$(AINDIR)||$(INCDIR)||$(LIBDIR)|C:\Program Files\Microchip\MPLAB C30\lib||$(LKRDIR)||
+SOLK=<src>|SD-SPI.c|FSIO.c|vs1011e_main.c||<obj>||<lib>||<lkr>|p24FJ64GA002.gld||
+SuiteArgsString=
+ToolArgsString=--heap=128 -Map="$(TARGETBASE).map" -o"$(TARGETBASE).$(TARGETSUFFIX)"
+TraceCmdString=
+DebugOptions=--defsym=__MPLAB_DEBUG=1 --defsym=__MPLAB_DEBUGGER_PICKIT2=1 --defsym=__ICD2RAM=1
+[TOOL_LOC_STAMPS]
+tool_loc{069BD372-6CA0-40D4-BF2F-5DC806D05083}=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-gcc.exe
+tool_loc{433C3D55-811D-409D-A6BF-159CF9355B42}=C:\Program Files (x86)\Microchip\MPLAB C30\bin\pic30-ld.exe
