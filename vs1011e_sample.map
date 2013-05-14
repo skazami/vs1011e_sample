@@ -1,4 +1,4 @@
-Microchip Technology Inc, vv3_31 (A) f
+Microchip Technology Inc, vv3_31 (A) ?
 
 Tool Name:
   c:\program files (x86)\microchip\mplab c30\bin\bin\..\bin/pic30-coff-ld.exe
@@ -82,8 +82,8 @@ Data Memory  [Origin = 0x800, Length = 0x2000]
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
 .icd                         0x800                0x50            0x50  (80)
-_02ebdd2051924d23            0x850                   0           0x200  (512)
-_02ebde7051924d23            0xa50                   0           0x200  (512)
+_02eddd2051925b57            0x850                   0           0x200  (512)
+_02edde7051925b57            0xa50                   0           0x200  (512)
 .nbss                        0xc50                   0           0x194  (404)
 .ndata                       0xde4                   0            0x18  (24)
 .nbss                        0xdfc                   0             0x4  (4)
@@ -266,18 +266,18 @@ External Symbols in Program Memory (by address):
                   0x005b7e                  _MDD_SDSPI_ReadMedia
                   0x005b94                  _OpenSPIM
                   0x005bb6                  _MDD_SDSPI_MediaInitialize
-                  0x005cdc                  _main
-                  0x005d6c                  _pic_configuration_init
-                  0x005dce                  _vs1011e_power_up
-                  0x005dda                  _vs1011e_power_down
-                  0x005de6                  _vs1011e_hard_reset
-                  0x005df8                  _vs1011e_soft_reset
-                  0x005e12                  _WriteSPI_with_wait_interrupt
-                  0x005e28                  _vs1011e_sci_write_with_verify
-                  0x005e54                  _vs1011e_sci_write
-                  0x005e86                  _vs1011e_sci_read
-                  0x005ec6                  _vs1011e_sdi_write
-                  0x005eda                  _vs1011e_test_sine
+                  0x005cdc                  _vs1011e_power_up
+                  0x005ce8                  _vs1011e_power_down
+                  0x005cf4                  _vs1011e_hard_reset
+                  0x005d06                  _vs1011e_soft_reset
+                  0x005d20                  _WriteSPI_with_wait_interrupt
+                  0x005d36                  _vs1011e_sci_write_with_verify
+                  0x005d62                  _vs1011e_sci_write
+                  0x005d94                  _vs1011e_sci_read
+                  0x005dd4                  _vs1011e_sdi_write
+                  0x005de8                  _vs1011e_test_sine
+                  0x005e3e                  _main
+                  0x005ece                  _pic_configuration_init
                   0x005f30                  _delay_us
                   0x005f6c                  _delay_ms
                   0x005fbc                  __DefaultInterrupt
@@ -353,7 +353,7 @@ External Symbols in Program Memory (by name):
                   0x0032ce                  _ValidateChars
                   0x003a60                  _WriteFAT
                   0x005b62                  _WriteSPIM
-                  0x005e12                  _WriteSPI_with_wait_interrupt
+                  0x005d20                  _WriteSPI_with_wait_interrupt
                   0x001588                  _Write_File_Entry
                   0x005fbc                  __DefaultInterrupt
                   0x0002ac                  ___udivsi3
@@ -367,10 +367,10 @@ External Symbols in Program Memory (by name):
                   0x005f30                  _delay_us
                   0x00533a                  _eraseDir
                   0x002e6e                  _flushData
-                  0x005cdc                  _main
+                  0x005e3e                  _main
                   0x0002d2                  _memset
                   0x00482c                  _mkdirhelper
-                  0x005d6c                  _pic_configuration_init
+                  0x005ece                  _pic_configuration_init
                   0x004e26                  _rmdirhelper
                   0x00033a                  _sdmmc_cmdtable
                   0x00032a                  _strchr
@@ -379,15 +379,15 @@ External Symbols in Program Memory (by name):
                   0x0002e0                  _strncpy
                   0x000290                  _tolower
                   0x00029e                  _toupper
-                  0x005de6                  _vs1011e_hard_reset
-                  0x005dda                  _vs1011e_power_down
-                  0x005dce                  _vs1011e_power_up
-                  0x005e86                  _vs1011e_sci_read
-                  0x005e54                  _vs1011e_sci_write
-                  0x005e28                  _vs1011e_sci_write_with_verify
-                  0x005ec6                  _vs1011e_sdi_write
-                  0x005df8                  _vs1011e_soft_reset
-                  0x005eda                  _vs1011e_test_sine
+                  0x005cf4                  _vs1011e_hard_reset
+                  0x005ce8                  _vs1011e_power_down
+                  0x005cdc                  _vs1011e_power_up
+                  0x005d94                  _vs1011e_sci_read
+                  0x005d62                  _vs1011e_sci_write
+                  0x005d36                  _vs1011e_sci_write_with_verify
+                  0x005dd4                  _vs1011e_sdi_write
+                  0x005d06                  _vs1011e_soft_reset
+                  0x005de8                  _vs1011e_test_sine
                   0x004c82                  _writeDotEntries
 
 Memory Configuration
@@ -1379,15 +1379,15 @@ __c30_signature
  __c30_signature
                   0x000048          0x6 c:/program files (x86)/microchip/mplab c30/bin/bin/../../lib\libc-coff.a(strchr.XXo)
 
-_02ebdd2051924d23
+_02eddd2051925b57
                     0x0850        0x200
- _02ebdd2051924d23
+ _02eddd2051925b57
                     0x0850        0x200 FSIO.o
                     0x0850                  gDataBuffer
 
-_02ebde7051924d23
+_02edde7051925b57
                     0x0a50        0x200
- _02ebde7051924d23
+ _02edde7051925b57
                     0x0a50        0x200 FSIO.o
                     0x0a50                  gFATBuffer
 
@@ -1520,19 +1520,20 @@ _02ebde7051924d23
                   0x005b7e                  MDD_SDSPI_ReadMedia
                   0x005b94                  OpenSPIM
                   0x005bb6                  MDD_SDSPI_MediaInitialize
- .text            0x005cdc        0x2aa vs1011e_main.o
-                  0x005cdc                  main
-                  0x005d6c                  pic_configuration_init
-                  0x005dce                  vs1011e_power_up
-                  0x005dda                  vs1011e_power_down
-                  0x005de6                  vs1011e_hard_reset
-                  0x005df8                  vs1011e_soft_reset
-                  0x005e12                  WriteSPI_with_wait_interrupt
-                  0x005e28                  vs1011e_sci_write_with_verify
-                  0x005e54                  vs1011e_sci_write
-                  0x005e86                  vs1011e_sci_read
-                  0x005ec6                  vs1011e_sdi_write
-                  0x005eda                  vs1011e_test_sine
+ .text            0x005cdc        0x162 vs1011e_drv.o
+                  0x005cdc                  vs1011e_power_up
+                  0x005ce8                  vs1011e_power_down
+                  0x005cf4                  vs1011e_hard_reset
+                  0x005d06                  vs1011e_soft_reset
+                  0x005d20                  WriteSPI_with_wait_interrupt
+                  0x005d36                  vs1011e_sci_write_with_verify
+                  0x005d62                  vs1011e_sci_write
+                  0x005d94                  vs1011e_sci_read
+                  0x005dd4                  vs1011e_sdi_write
+                  0x005de8                  vs1011e_test_sine
+ .text            0x005e3e        0x148 vs1011e_main.o
+                  0x005e3e                  main
+                  0x005ece                  pic_configuration_init
                   0x005f30                  delay_us
                   0x005f6c                  delay_ms
 
