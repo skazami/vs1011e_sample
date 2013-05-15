@@ -92,6 +92,8 @@ void vs1011e_sci_read(BYTE addr, BYTE *data)
 
 void vs1011e_sdi_write(BYTE data)
 {
+	VS1011E_CS = 1;
+	VS1011E_XDCS  = 0;
 	while( !VS1011E_DREQ );
 
 	WriteSPI_with_wait_interrupt(data);
@@ -108,7 +110,7 @@ void vs1011e_sdi_write(BYTE data)
 //
 // 引数の詳細はvs1011eのデータシートを参照
 //
-// Support:
+// Support status:
 //   1) Sine Test  : applicable
 //   2) Pin Test   : not applicable
 //   3) Memory Test: applicable
@@ -189,7 +191,7 @@ BOOL vs1011e_test_memory(void)
 // Test mode:SCI test
 // SCI_HDAT0の値と指定したアドレスのレジスタ値が一致しない限り、この関数は戻らない
 // 
-// register data cannot be copied to hdat0... why?????
+// register data doesn't be copied to hdat0... why?????
 void vs1011e_test_sci(BYTE addr)
 {
 	BYTE hdat[2], read_buf[2];

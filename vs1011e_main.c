@@ -55,17 +55,12 @@ int main(void){
 
 	while(1)
 	{
-		VS1011E_CS = 1;
-		while( !VS1011E_DREQ );
-		VS1011E_XDCS  = 0;
 		while(FSfread(data, 32, 1, pFile) > 0)
 		{
 			while( !VS1011E_DREQ );
 	
 			for(i=0;i<32;i++)
-			{
-				WriteSPI_with_wait_interrupt(data[i]);
-			}
+				vs1011e_sdi_write(data[i]);
 		}
 
 		FSrewind(pFile);
