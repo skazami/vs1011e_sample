@@ -17,28 +17,13 @@ _CONFIG2(IESO_OFF & FNOSC_FRCPLL & FCKSM_CSDCMD
          & OSCIOFNC_ON & IOL1WAY_OFF & I2C1SEL_PRI
          & POSCMOD_NONE)
 
-unsigned int SPICONValue1 = ENABLE_SCK_PIN & ENABLE_SDO_PIN &
-							SPI_MODE8_ON & SPI_SMP_OFF &
-							SPI_CKE_ON & SLAVE_ENABLE_OFF &
-							CLK_POL_ACTIVE_HIGH & MASTER_ENABLE_ON &
-							SEC_PRESCAL_2_1 & PRI_PRESCAL_4_1;
-unsigned int SPICONValue2 = FRAME_ENABLE_OFF & FRAME_SYNC_OUTPUT &
-							FRAME_POL_ACTIVE_HIGH &
-							FRAME_SYNC_EDGE_COINCIDE &
-							FIFO_BUFFER_ENABLE;
-unsigned int SPISTATValue = SPI_ENABLE & SPI_IDLE_CON &
-							SPI_RX_OVFLOW_CLR;
-
-
 void pic_configuration_init(void);
 
 
 int main(void){
 	FSFILE *pFile;
 	BYTE data[32];
-	BYTE buf[4];
-	char i;
-	unsigned int d=0;
+	unsigned int i;
 
 	CLKDIV = 0;
 	pic_configuration_init();
@@ -54,84 +39,36 @@ int main(void){
 	}
 
 	vs1011e_hard_reset();
-
-	VS1011E_CS    = 1;     // Initialize CS
-	VS1011E_XDCS  = 1;     // Initialize XCDS
-
 	vs1011e_soft_reset();
-
 	vs1011e_sci_write_with_verify(0x00, 0x08, 0x20);
 	vs1011e_sci_write_with_verify(0x03, 0x98, 0x00);
 	vs1011e_sci_write_with_verify(0x0B, 0x60, 0x60);
 
-//	vs1011e_test_sine(0x06, 0x0E);
-
-/*
-	VS1011E_CS = 0;
-	VS1011E_XDCS  = 1;
-	delay_us(2);
-	while( !VS1011E_DREQ );
-	VS1011E_XDCS  = 0;
-	VS1011E_CS = 1;
-	delay_us(2);
-	do
-	{
-	VS1011E_CS = 0;
-	VS1011E_XDCS  = 1;
-	delay_us(2);
-	while( !VS1011E_DREQ );
-	VS1011E_XDCS  = 0;
-	VS1011E_CS = 1;
-	delay_us(2);
-#if 1
-	vs1011e_sdi_write(0x53);
-	vs1011e_sdi_write(0x70);
-	vs1011e_sdi_write(0xEE);
-	vs1011e_sdi_write(0x00);
-#else
-	vs1011e_sdi_write(0x4D);
-	vs1011e_sdi_write(0xEA);
-	vs1011e_sdi_write(0x6D);
-	vs1011e_sdi_write(0x54);
+#if 0 // test code for test mode
+	vs1011e_init_for_test_mode();
+	vs1011e_test_sine_start(0x06, 0x0E);
+	delay_ms(3000);
+	vs1011e_test_sine_end();
+//	vs1011e_test_sci(0x00);
+//	vs1011e_test_memory();
 #endif
-	vs1011e_sdi_write(0x00);
-	vs1011e_sdi_write(0x00);
-	vs1011e_sdi_write(0x00);
-	vs1011e_sdi_write(0x00);
-	delay_ms(10);
-	vs1011e_sci_read(0x08,data);
-	delay_ms(10);
-	vs1011e_sci_read(0x00,buf);
-	}while(0);
-//	}while(data[0]!=buf[0]||data[1]!=buf[1]);
 
-	d=1;
-	while(d)
+	while(1)
 	{
-	vs1011e_sdi_write(0x45);
-	vs1011e_sdi_write(0x78);
-	vs1011e_sdi_write(0x69);
-	vs1011e_sdi_write(0x74);
-	vs1011e_sdi_write(0x00);
-	vs1011e_sdi_write(0x00);
-	vs1011e_sdi_write(0x00);
-	vs1011e_sdi_write(0x00);
-	}
-
-	d=1;
-	while(d);
-*/
-	VS1011E_CS = 1;
-	while( !VS1011E_DREQ );
-	VS1011E_XDCS  = 0;
-	while(FSfread(data, 32, 1, pFile) > 0)
-	{
+		VS1011E_CS = 1;
 		while( !VS1011E_DREQ );
-
-		for(i=0;i<32;i++)
+		VS1011E_XDCS  = 0;
+		while(FSfread(data, 32, 1, pFile) > 0)
 		{
-			WriteSPI_with_wait_interrupt(data[i]);
+			while( !VS1011E_DREQ );
+	
+			for(i=0;i<32;i++)
+			{
+				WriteSPI_with_wait_interrupt(data[i]);
+			}
 		}
+
+		FSrewind(pFile);
 	}
 
 	vs1011e_power_down();
@@ -170,12 +107,18 @@ void pic_configuration_init(void)
 //	CNEN1bits.CN1IE = 1;
 //	CNEN1bits.CN11IE = 1;
 
-	SPI2CON1 = SPICONValue1;
-	SPI2CON2 = SPICONValue2;
-//	SPI2CON2 = SPICONValue2 & 0xfffe;
-	SPI2STAT = SPISTATValue;
-//	SPI2STAT = SPISTATValue & 0xbfff;
-//	SPI2STATbits.SISEL = 5;
+	SPI2CON1 = ENABLE_SCK_PIN & ENABLE_SDO_PIN &
+				SPI_MODE8_ON & SPI_SMP_OFF &
+				SPI_CKE_ON & SLAVE_ENABLE_OFF &
+				CLK_POL_ACTIVE_HIGH & MASTER_ENABLE_ON &
+				SEC_PRESCAL_2_1 & PRI_PRESCAL_4_1;
+
+	SPI2CON2 = FRAME_ENABLE_OFF & FRAME_SYNC_OUTPUT &
+				FRAME_POL_ACTIVE_HIGH &
+				FRAME_SYNC_EDGE_COINCIDE &
+				FIFO_BUFFER_ENABLE;
+	SPI2STAT = SPI_ENABLE & SPI_IDLE_CON & SPI_RX_OVFLOW_CLR;
+
 }
 
 //----- usec_delay

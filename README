@@ -1,1 +1,4 @@
-Sample project for vs1011e on PIC24FJ64GA002
+Description: Sample project for vs1011e
+Language: C30(Evaluation Version)
+Target: PIC24FJ64GA002
+Build Environment: MPLAB IDE v8.60
