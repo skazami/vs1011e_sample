@@ -99,6 +99,14 @@ void vs1011e_sdi_write(BYTE data)
 	WriteSPI_with_wait_interrupt(data);
 }
 
+void vs1011e_ram_clear(void)
+{
+	int i;
+
+	for(i=0;i<2048;i++)
+		vs1011e_sdi_write(0x00);
+}
+
 // Test mode implementation
 // Prerequisites:
 //   Test mode‚ÌŠÖ”‚ðŒÄ‚Ño‚·‘O‚Évs1011e_init_for_test_mode()‚ðŽÀs‚·‚é‚±‚Æ

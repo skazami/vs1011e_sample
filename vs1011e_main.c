@@ -55,6 +55,8 @@ int main(void){
 
 	while(1)
 	{
+		vs1011e_ram_clear();
+
 		while(FSfread(data, 32, 1, pFile) > 0)
 		{
 			while( !VS1011E_DREQ );
