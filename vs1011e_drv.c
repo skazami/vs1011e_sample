@@ -3,7 +3,8 @@
 #include <spi.h>
 #include "vs1011e_drv.h"
 
-
+// at return:
+//   CS,XDCS: High
 void vs1011e_power_up(void)
 {
 	delay_ms(1);
@@ -13,12 +14,16 @@ void vs1011e_power_up(void)
 	VS1011E_XDCS  = 1;     // Initialize XCDS
 }
 
+// at return:
+//   CS,XDCS: unknown ( must be initialized at power up sequence)
 void vs1011e_power_down(void)
 {
 	delay_ms(1);
 	VS1011E_XRESET = 0;
 }
 
+// at return:
+//   CS,XDCS: High
 void vs1011e_hard_reset(void)
 {
 	vs1011e_power_down();
@@ -27,6 +32,8 @@ void vs1011e_hard_reset(void)
 	delay_ms(1);
 }
 
+// at return:
+//   CS,XDCS: High (It depends on vs1011e_sci_write())
 void vs1011e_soft_reset(void)
 {
 	vs1011e_sci_write(0x00, 0x00, 0x04);
@@ -49,6 +56,8 @@ BYTE WriteSPI_with_wait_interrupt(BYTE d)
 //
 // 注意：書き込んだデータと読み込んだデータが一致しない限り、この関数からは戻らない
 //
+// at return:
+//   CS,XDCS: High (It depends on vs1011e_sci_read())
 void vs1011e_sci_write_with_verify(BYTE addr, BYTE data1, BYTE data2)
 {
 	BYTE read_buf[2];
@@ -60,6 +69,8 @@ void vs1011e_sci_write_with_verify(BYTE addr, BYTE data1, BYTE data2)
 	}while(read_buf[0]!=data1 || read_buf[1]!= data2);
 }
 
+// at return:
+//   CS,XDCS: High
 void vs1011e_sci_write(BYTE addr, BYTE data1, BYTE data2)
 {
 	VS1011E_XDCS = 1;
@@ -75,6 +86,8 @@ void vs1011e_sci_write(BYTE addr, BYTE data1, BYTE data2)
 	while( !VS1011E_DREQ );
 }
 
+// at return:
+//   CS,XDCS: High
 void vs1011e_sci_read(BYTE addr, BYTE *data)
 {
 	VS1011E_XDCS = 1;
@@ -90,6 +103,9 @@ void vs1011e_sci_read(BYTE addr, BYTE *data)
 	while( !VS1011E_DREQ );
 }
 
+// at return:
+//   CS   : High
+//   XDCS : Low
 void vs1011e_sdi_write(BYTE data)
 {
 	VS1011E_CS = 1;
@@ -99,6 +115,9 @@ void vs1011e_sdi_write(BYTE data)
 	WriteSPI_with_wait_interrupt(data);
 }
 
+// at return:
+//   CS   : High
+//   XDCS : Low
 void vs1011e_ram_clear(void)
 {
 	int i;
@@ -109,8 +128,8 @@ void vs1011e_ram_clear(void)
 
 // Test mode implementation
 // Prerequisites:
-//   Test modeの関数を呼び出す前にvs1011e_init_for_test_mode()を実行すること
-//   処理内容:
+//   Test modeの関数を呼び出す前に初期化関数（vs1011e_init_for_test_mode()）を実行すること
+//   vs1011e_init_for_test_mode()初期化関数の処理内容:
 //       1) vs1011eのハードリセット
 //       2) CS,XDCSをHigh
 //       3) SCI_MODE, CLOCKF, SCI_VOLの設定(SCI_MODEはSM_SDINEWとSM_TESTSをセットしておくこと)
@@ -139,32 +158,27 @@ void vs1011e_test_sine_start(BYTE sample_rate, BYTE skip_speed)
 {
 	BYTE sine_test;
 
-	VS1011E_CS = 1;
-	while( !VS1011E_DREQ );
-	VS1011E_XDCS  = 0;
-	while( !VS1011E_DREQ );
-
 	sine_test = (((0x0f & sample_rate) << 4) | (0x0f & skip_speed));
-	WriteSPI_with_wait_interrupt(0x53);
-	WriteSPI_with_wait_interrupt(0xEF);
-	WriteSPI_with_wait_interrupt(0x6E);
-	WriteSPI_with_wait_interrupt(sine_test);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
+	vs1011e_sdi_write(0x53);
+	vs1011e_sdi_write(0xEF);
+	vs1011e_sdi_write(0x6E);
+	vs1011e_sdi_write(sine_test);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
 }
 
 void vs1011e_test_sine_end(void)
 {
-	WriteSPI_with_wait_interrupt(0x45); // E
-	WriteSPI_with_wait_interrupt(0x78); // x
-	WriteSPI_with_wait_interrupt(0x69); // i
-	WriteSPI_with_wait_interrupt(0x74); // t
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
+	vs1011e_sdi_write(0x45); // E
+	vs1011e_sdi_write(0x78); // x
+	vs1011e_sdi_write(0x69); // i
+	vs1011e_sdi_write(0x74); // t
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
 }
 
 // Test mode:memory test
@@ -177,14 +191,14 @@ BOOL vs1011e_test_memory(void)
 	VS1011E_XDCS  = 0;
 	while( !VS1011E_DREQ );
 
-	WriteSPI_with_wait_interrupt(0x4D);
-	WriteSPI_with_wait_interrupt(0xEA);
-	WriteSPI_with_wait_interrupt(0x6D);
-	WriteSPI_with_wait_interrupt(0x54);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
+	vs1011e_sdi_write(0x4D);
+	vs1011e_sdi_write(0xEA);
+	vs1011e_sdi_write(0x6D);
+	vs1011e_sdi_write(0x54);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
 
 	delay_ms(150); 
 
@@ -208,19 +222,14 @@ void vs1011e_test_sci(BYTE addr)
 	if( addr == 0x08 )
 		result_register_addr = 0x09;
 
-	VS1011E_CS = 1;
-	while( !VS1011E_DREQ );
-	VS1011E_XDCS  = 0;
-	while( !VS1011E_DREQ );
-
-	WriteSPI_with_wait_interrupt(0x53);
-	WriteSPI_with_wait_interrupt(0x70);
-	WriteSPI_with_wait_interrupt(0xEE);
-	WriteSPI_with_wait_interrupt(addr);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
-	WriteSPI_with_wait_interrupt(0x00);
+	vs1011e_sdi_write(0x53);
+	vs1011e_sdi_write(0x70);
+	vs1011e_sdi_write(0xEE);
+	vs1011e_sdi_write(addr);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
+	vs1011e_sdi_write(0x00);
 
 	do
 	{
