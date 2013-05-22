@@ -46,10 +46,8 @@ BYTE WriteSPI_with_wait_interrupt(BYTE d)
 	IFS2bits.SPI2IF = 0;
 
 	SPI2BUF = d;
-//	delay_us(2);  // b’èˆ—(SPI CLK 4MHz‚Ì‚Æ‚«)
-	delay_us(4);  // b’èˆ—(SPI CLK 2MHz‚Ì‚Æ‚«)
-//	delay_us(8);  // b’èˆ—(SPI CLK 1MHz‚Ì‚Æ‚«)
 //	while(!IFS2bits.SPI2IF);
+	while(SPI2STATbits.SRXMPT); //b’èˆ—
 	return SPI2BUF;
 }
 
